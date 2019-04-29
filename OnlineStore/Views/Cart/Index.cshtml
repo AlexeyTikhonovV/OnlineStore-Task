@@ -1,0 +1,40 @@
+﻿@model IEnumerable<OnlineStore.Models.Cart>
+
+<div class="row">
+    <div class="col-md-10">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Count</th>
+                    <th>Amount</th>
+                    <th>Remove</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td class="col-md-2">@item.Name</td>
+                        <td class="col-md-2">@item.Price</td>
+                        <td class="col-md-3">
+                            <form asp-action="UpdateCountCommodity" asp-route-id="@item.CommodityNamber" method="post">
+                                <input type="text" name="Count" value="@item.Count" />
+                                <input type="submit" class="btn btn-sm btn-danger" value="Update" />
+                            </form>
+                        </td>
+                        <td class="col-md-2">@(item.Count * item.Price)$</td>
+                        <td class="col-md-1">
+                            <form asp-action="Remove" asp-route-id="@item.CommodityNamber" method="post">
+                                <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

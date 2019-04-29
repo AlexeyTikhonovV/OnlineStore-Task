@@ -1,0 +1,28 @@
+﻿@model IEnumerable<OnlineStore.Models.Goods>
+<div class="col-md-3 form-inline top-buffer prise-right padding">
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {     
+        @Html.DropDownList("SelectCategory", new SelectList(ViewBag.list), "All", new { @class = "form-control" })
+        <input type="submit" value="Filter" class="btn btn-default" />
+    }
+</div>
+
+<div class="container body-content">
+    <div class="row goods-content">
+        @foreach (var item in Model)
+        {
+            <div class="goods-image-container">
+                <div class="box">
+                    <div>@item.Name</div>
+                    <div class="prise-right">Price: @item.Price$</div>
+                </div>
+                <img class="img" src="~/images/@item.Image" />
+                <div class="buttom-add-to-cart">
+                    <form asp-action="AddToCart" asp-route-Id="@item.Id" method="post">
+                        <button type="submit" class="btn btn-sm btn-danger">Add To Cart</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
